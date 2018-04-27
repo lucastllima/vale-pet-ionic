@@ -1,14 +1,35 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
+      <ion-navbar>
+          <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-navbar>
   </ion-header>
 
   <ion-content>
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 class="df-align-item">
+            <div class="custom-avatar" [style.backgroundImage]="'url(https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg)'">
+
+            </div>
+          </ion-col>
+          <ion-col col-8>
+              <h6>Lucas Teixeira Lima</h6>
+              <p>Have some p tag here</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <hr>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <i class="{{ p.icon }}"></i> <span>{{p.title}}</span>
+      </button>
+      <button menuClose ion-item (click)="openPage(p)">
+        <i class="ion-ios-exit-outline"></i> <span>Logout</span>
       </button>
     </ion-list>
   </ion-content>
