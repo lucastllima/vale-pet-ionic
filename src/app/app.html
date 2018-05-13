@@ -1,40 +1,29 @@
-<ion-menu [content]="content">
-  <ion-header>
-      <ion-navbar>
-          <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-          </button>
-        </ion-navbar>
-  </ion-header>
 
+
+<ion-menu [content]="content" id="menu-material">
   <ion-content>
-    <div>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-4 class="df-align-item">
-            <div class="custom-avatar" [style.backgroundImage]="'url(https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg)'">
-
-            </div>
-          </ion-col>
-          <ion-col col-8>
-              <h6>Lucas Teixeira Lima</h6>
-              <p>Have some p tag here</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+    <div class="menu-header">
+      <!--material-design-background-->
+      <div class="custom-avatar" [style.backgroundImage]="'url(https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg)'"></div>
+      <!-- <img class="user-avatar round" [src]="chosenPicture || placeholder" onerror="this.src='assets/img/avatar/girl-avatar.png'"
+      /> -->
+      <p class="name">Lucas Teixeira Lima</p>
+      <p class="e-mail">lucasteixeira-lima@hotmail.com</p>
     </div>
-    <hr>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <i class="{{ p.icon }}"></i> <span>{{p.title}}</span>
+ 
+
+    <ion-list no-lines>
+      <button menuClose="left" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)">
+        <i item-left class="{{ p.icon }}"></i>{{p.title}}
       </button>
-      <button menuClose ion-item (click)="openPage(p)">
-        <i class="ion-ios-exit-outline"></i> <span>Logout</span>
+
+      <button menuClose ion-item detail-none (click)="openPage(p)">
+        <i item-left class="fas fa-exit"></i> Sair
       </button>
     </ion-list>
   </ion-content>
-
 </ion-menu>
+
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

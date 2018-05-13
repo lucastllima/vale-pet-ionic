@@ -5,6 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { AdicionarPage } from '../pages/adicionar/adicionar';
+import { PerfilPage } from '../pages/perfil/perfil';
+import { PostagensPage } from '../pages/postagens/postagens';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,8 +24,11 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage, icon: 'ion-ios-home-outline' },
-      { title: 'List', component: ListPage, icon: 'ion-ios-home-outline' }
+      { title: 'Início', component: HomePage, icon: 'fas fa-home' },
+      // { title: 'List', component: ListPage, icon: 'ion-ios-home-outline' },
+      { title: 'Novo Anúncio', component: AdicionarPage, icon: 'fas fa-plus' },
+      { title: 'Meus Anúncios', component: PostagensPage, icon: 'fas fa-file-alt' },
+      { title: 'Meu Perfil', component: PerfilPage, icon: 'fas fa-user' }
     ];
 
   }
