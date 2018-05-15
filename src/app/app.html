@@ -1,5 +1,10 @@
 
-
+<style>
+  ion-list button{
+    padding-top:5px;
+    padding-bottom:5px;
+  }
+</style>
 <ion-menu [content]="content" id="menu-material">
   <ion-content>
     <div class="menu-header">
@@ -13,12 +18,27 @@
  
 
     <ion-list no-lines>
-      <button menuClose="left" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)">
-        <i item-left class="{{ p.icon }}"></i>{{p.title}}
+      <button menuClose ion-item detail-none (click)="openPage(HomePage)">
+          <i item-left class="fas fa-home"></i> Início
       </button>
-
-      <button menuClose ion-item detail-none (click)="openPage(p)">
-        <i item-left class="fas fa-exit"></i> Sair
+      <button menuClose ion-item detail-none (click)="pushPage(PerfilPage)">
+          <i item-left class="fas fa-user"></i> Meu Perfil
+      </button>
+      <button menuClose ion-item detail-none (click)="pushPage(PostagensPage)">
+          <i item-left class="fas fa-file-alt"></i> Meus Anúncios
+      </button>
+      <button menuClose ion-item detail-none (click)="pushPage(AdicionarPage)">
+          <i item-left class="fas fa-plus"></i> Novo Anúncio
+      </button>
+     
+      
+      <!-- For Pages -->
+        <!-- <button menuClose="left" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)">
+          <i item-left class="{{ p.icon }}"></i>{{p.title}}
+        </button> -->
+      <!-- End For Pages -->
+      <button menuClose ion-item detail-none>
+        <i item-left class="fas fa-sign-out-alt"></i> Sair
       </button>
     </ion-list>
   </ion-content>

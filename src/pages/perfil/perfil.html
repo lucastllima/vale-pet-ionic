@@ -6,13 +6,35 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar navPop>
     <ion-title>Perfil</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+    <div id="profile-bg" [ngStyle]="{'background-image': 'url(assets/imgs/background/perfil-background.png)'}"></div>
+    <div id="content">
+        <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+        <div id="profile-info">
+          <div id="profile-image" [style.backgroundImage]="'url(assets/imgs/avatar/dog.png)'" style="-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;background-position: center;width:128px;height:128px;border-radius: 50%;"></div>
+          <!-- <img id="profile-image" src="assets/imgs/avatar/cat.png"> -->
+          <h3 id="profile-name">John</h3>
+          <span id="profile-description">Traveler, geek and animal lover.</span>
+          <p>Follow my <a href="https://twitter.com/ionicframework">@facebook</a> and
+            <a href="https://twitter.com/driftyco">@twitter</a> accounts.</p>
+        </div>
+        <!-- <ion-list>
+          <ion-item *ngFor="let post of posts">
+            <img class="post-profile-image" src="assets/img/misc/cat.jpg"> {{post.text}}
+            <div class="post-time">{{post.created_at}} something</div>
+            <div class="post-options">
+              <ion-icon name="undo"></ion-icon>
+            </div>
+          </ion-item>
+        </ion-list> -->
+    </div>
 
 </ion-content>

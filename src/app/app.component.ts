@@ -16,6 +16,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
+  AdicionarPage:any = AdicionarPage;
+  PerfilPage:any = PerfilPage;
+  PostagensPage:any = PostagensPage;
 
   pages: Array<{title: string, component: any, icon: any}>;
 
@@ -24,11 +27,11 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Início', component: HomePage, icon: 'fas fa-home' },
+      //{ title: 'Início', component: HomePage, icon: 'fas fa-home' },
       // { title: 'List', component: ListPage, icon: 'ion-ios-home-outline' },
-      { title: 'Novo Anúncio', component: AdicionarPage, icon: 'fas fa-plus' },
-      { title: 'Meus Anúncios', component: PostagensPage, icon: 'fas fa-file-alt' },
-      { title: 'Meu Perfil', component: PerfilPage, icon: 'fas fa-user' }
+      // { title: 'Novo Anúncio', component: AdicionarPage, icon: 'fas fa-plus' },
+      //{ title: 'Meus Anúncios', component: PostagensPage, icon: 'fas fa-file-alt' },
+      //{ title: 'Meu Perfil', component: PerfilPage, icon: 'fas fa-user' }
     ];
 
   }
@@ -45,6 +48,11 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    // this.nav.setRoot(page.component);
+    this.nav.setRoot(page);
+  }
+
+  pushPage(page) {
+    this.nav.push(page);
   }
 }
