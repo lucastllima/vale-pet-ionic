@@ -1,3 +1,4 @@
+import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -15,6 +16,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Global } from './global';
 import { apiService } from '../providers/api-service';
+import { RestProvider } from '../providers/rest/rest';
+import { HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 
@@ -26,11 +30,14 @@ import { apiService } from '../providers/api-service';
     AdicionarPage,
     PostagensPage,
     PostagemDetalhePage,
-    PerfilPage
+    PerfilPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,14 +47,16 @@ import { apiService } from '../providers/api-service';
     AdicionarPage,
     PostagensPage,
     PostagemDetalhePage,
-    PerfilPage
+    PerfilPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Global,
     apiService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RestProvider
   ]
 })
 export class AppModule {}

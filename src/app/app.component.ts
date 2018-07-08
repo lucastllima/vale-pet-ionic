@@ -1,3 +1,4 @@
+import { LoginPage } from './../pages/login/login';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,7 +16,7 @@ import { PostagensPage } from '../pages/postagens/postagens';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
   AdicionarPage:any = AdicionarPage;
   PerfilPage:any = PerfilPage;
   PostagensPage:any = PostagensPage;
