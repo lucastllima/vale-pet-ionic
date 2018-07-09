@@ -1,0 +1,57 @@
+<ion-content padding class="transparent-header">
+    <ion-header>
+      <ion-navbar>
+      </ion-navbar>
+    </ion-header>
+    <!-- <img class="logo" src="assets/imgs/avatar/dog.png" /> -->
+    <div style="text-align: center; margin-top: 10%;">
+      <h4 class="logo" style="color:#ffffff; font-size:30px; width:100%;"> Registre-se </h4>
+    </div>
+    <div padding>
+      <form #f="ngForm" (ngSubmit)="registro(f.value)" novalidate>
+        <ion-item>
+          <ion-input type="text" 
+                    name="name"
+                    ngModel
+                    required
+                    placeholder="Nome"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" 
+                    name="email"
+                    ngModel
+                    required
+                    [email]="true"
+                    placeholder="E-mail"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-input type="password" 
+                    name="password"
+                    ngModel
+                    required
+                    placeholder="Senha"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" 
+                    name="password_confirmation"
+                    ngModel
+                    required
+                    placeholder="Repetir Senha"></ion-input>
+        </ion-item>
+        
+        <button type="submit" [disabled]="!f.form.valid" ion-button block outline color="light" class="login-button">Registrar</button>
+      </form>
+    </div>
+    <div class="strike">
+      <span>Ou</span>
+    </div>
+    <button ion-button block clear (click)="facebookLogin()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login com Facebook</button>
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar class="footer">
+      <div>
+        <span>Já possui conta? <strong navPop>Realizar Login</strong>.</span>
+      </div>
+    </ion-toolbar>
+  </ion-footer>

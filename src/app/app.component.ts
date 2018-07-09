@@ -1,6 +1,6 @@
 import { LoginPage } from './../pages/login/login';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, LoadingController, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { AdicionarPage } from '../pages/adicionar/adicionar';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { PostagensPage } from '../pages/postagens/postagens';
+import { RestProvider } from '../providers/rest/rest';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,16 +17,22 @@ import { PostagensPage } from '../pages/postagens/postagens';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any;
   AdicionarPage:any = AdicionarPage;
   PerfilPage:any = PerfilPage;
   PostagensPage:any = PostagensPage;
 
   pages: Array<{title: string, component: any, icon: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public rest: RestProvider,
+    public loadingCtrl: LoadingController    
+  ) {
     this.initializeApp();
-
+    
     // used for an example of ngFor and navigation
     this.pages = [
       //{ title: 'Início', component: HomePage, icon: 'fas fa-home' },
@@ -43,6 +50,10 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      if(localStorage.getItem('user'))
+        this.rootPage = HomePage;
+      else
+        this.rootPage = LoginPage;
     });
   }
 
@@ -55,5 +66,26 @@ export class MyApp {
 
   pushPage(page) {
     this.nav.push(page);
+  }
+
+  logout()
+  {
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Processando...',
+      showBackdrop: false
+    });
+    
+
+    loading.present().then(() => {
+      this.rest.logout().then((data) => {
+        loading.dismiss();
+        if(data.success)
+        {
+          localStorage.clear();
+          this.nav.setRoot(LoginPage);
+        }
+      }).catch((error) => { loading.dismiss(); console.log(error); });
+    });
   }
 }

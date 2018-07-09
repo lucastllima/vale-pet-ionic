@@ -1,32 +1,32 @@
 import { HomePage } from './../home/home';
-import { RegistroPage } from './../registro/registro';
 import { RestProvider } from './../../providers/rest/rest';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
-import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { HttpErrorResponse } from '../../../node_modules/@angular/common/http';
 
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the RegistroPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-registro',
+  templateUrl: 'registro.html',
 })
-export class LoginPage{
+export class RegistroPage {
 
   errorEmail:any;
   messageEmail:any;
 
+  errorName:any;
+  messageName:any;
+
   errorPassword:any;
   messagePassword:any;
-
-  RegistroPage:any = RegistroPage;
-
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,26 +34,27 @@ export class LoginPage{
     private formBuilder: FormBuilder,
     public loadingCtrl:LoadingController,
     public alertCtrl:AlertController
-  ) {
-
+  ) 
+  {
+   
   }
-
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    console.log('ionViewDidLoad RegistroPage');
   }
 
-  login(f)
-  {
-    let obj = {
-      email: f.email,
-      password: f.password,
-    }
 
-      
-      this.errorPassword = false;
-      this.errorEmail = false;
-      
+  registro(f)
+  {
+    if(f.password != f.password_confirmation)
+    {
+      let alert = this.alertCtrl.create({
+        title: 'Atenção',
+        subTitle: 'As senhas estão divergindo.',
+        buttons: ['Ok']
+      });
+      alert.present();
+    }else{
       let loading = this.loadingCtrl.create({
         spinner: 'crescent',
         content: 'Processando...',
@@ -62,11 +63,11 @@ export class LoginPage{
       
 
       loading.present().then(() => {
-        this.rest.login(obj).subscribe( (data) => {
+        this.rest.registro(f).subscribe( (data) => {
           loading.dismiss();
 
           this.navCtrl.setRoot(HomePage);
-        }, (errorResponse: HttpErrorResponse) => {
+        }, (errorResponse) => {
           loading.dismiss();
 
           let alert = this.alertCtrl.create({
@@ -78,19 +79,7 @@ export class LoginPage{
           
         });
       });
-
-      
-    
-  }
-
-  facebookLogin()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'Atenção',
-      subTitle: 'Login com o facebook ainda não está pronto...',
-      buttons: ['Ok']
-    });
-    alert.present();
+    }
   }
 
 }

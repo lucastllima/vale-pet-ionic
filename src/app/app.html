@@ -37,7 +37,7 @@
           <i item-left class="{{ p.icon }}"></i>{{p.title}}
         </button> -->
       <!-- End For Pages -->
-      <button menuClose ion-item detail-none>
+      <button menuClose ion-item detail-none (click)="logout()">
         <i item-left class="fas fa-sign-out-alt"></i> Sair
       </button>
     </ion-list>

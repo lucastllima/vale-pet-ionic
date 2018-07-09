@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/do';
 import { Observable } from '../../../node_modules/rxjs/Observable';
+import { RequestOptions } from '../../../node_modules/@angular/http';
 
 /*
   Generated class for the RestProvider provider.
@@ -30,7 +31,7 @@ export class RestProvider {
 
   userData()
   {
-    return atob(JSON.parse(localStorage.getItem('user')));
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   login(credentials: {email: string, password: string}): Observable <boolean>
@@ -38,7 +39,28 @@ export class RestProvider {
     return this.http.post<any>(this.apiUrl+'login', credentials)
     .do(data => {
       localStorage.setItem('token', data.token);
-      localStorage.setItem('user', btoa(JSON.stringify(data.user)));
+      localStorage.setItem('user', JSON.stringify(data.user));
+    });
+  }
+
+  logout(): Promise<any>
+  {
+
+    return new Promise( (resolve, reject) => {
+      this.http.post(this.apiUrl+'logout', {})
+      .subscribe((data) =>{
+        resolve(data);
+      });
+    });
+    
+  }
+
+  registro(dados)
+  {
+    return this.http.post<any>(this.apiUrl+'registro', dados)
+    .do(data => {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
     });
   }
   

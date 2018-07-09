@@ -1,3 +1,6 @@
+import { RefreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { RegistroPage } from './../pages/registro/registro';
 import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -18,7 +21,7 @@ import { Global } from './global';
 import { apiService } from '../providers/api-service';
 import { RestProvider } from '../providers/rest/rest';
 import { HttpModule } from '@angular/http';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 
@@ -31,7 +34,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     PostagensPage,
     PostagemDetalhePage,
     PerfilPage,
-    LoginPage
+    LoginPage,
+    RegistroPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     PostagensPage,
     PostagemDetalhePage,
     PerfilPage,
-    LoginPage
+    LoginPage,
+    RegistroPage
   ],
   providers: [
     StatusBar,
@@ -56,7 +61,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     Global,
     apiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestProvider
+    RestProvider,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true }
   ]
 })
 export class AppModule {}

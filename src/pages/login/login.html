@@ -5,35 +5,38 @@
   </ion-header>
   <img class="logo" src="assets/imgs/avatar/dog.png" />
   <div padding>
-    <form [formGroup]="f" (ngSubmit)="login()" novalidate>
+    <form #f="ngForm" (ngSubmit)="login(f.value)" novalidate>
       <ion-item>
         <ion-input type="text" 
-                  [(ngModel)]="email"
-                  formControlName="email"
-                  clearInput clearOnEdit="false"
+                  name="email"
+                  ngModel
+                  required
                   placeholder="E-mail"></ion-input>
       </ion-item>
-      <h6 *ngIf="errorEmail" class="error">{{ messageEmail }}</h6>
+      
       <ion-item>
         <ion-input type="password" 
-                  [(ngModel)]="password"
-                  formControlName="password"
-                  clearInput clearOnEdit="false"
+                  name="password"
+                  ngModel
+                  required
                   placeholder="Senha"></ion-input>
       </ion-item>
-      <h6 *ngIf="errorPassword" class="error">{{ messagePassword }}</h6>
-      <button ion-button block outline color="light" class="login-button">Login</button>
+      <div>
+          <h6 style="color:#ffffff; float:right; font-size:13px; margin-bottom: 20px; margin-top: 20px;">Esqueceu a senha?</h6>
+      </div>
+      
+      <button type="submit" [disabled]="!f.form.valid" ion-button block outline color="light" class="login-button">Login</button>
     </form>
   </div>
   <div class="strike">
-    <span>OR</span>
+    <span>Ou</span>
   </div>
-  <button ion-button block clear (click)="login()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login with Facebook</button>
+  <button ion-button block clear (click)="facebookLogin()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login com Facebook</button>
 </ion-content>
 <ion-footer>
   <ion-toolbar class="footer">
-    <div (click)="goToSignup()">
-      <span>Não possui conta? <strong>Registre-se</strong>.</span>
+    <div>
+      <span>Não possui conta? <strong [navPush]="RegistroPage">Registre-se</strong>.</span>
     </div>
   </ion-toolbar>
 </ion-footer>
