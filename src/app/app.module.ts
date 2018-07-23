@@ -1,3 +1,7 @@
+import { BuscaPage } from './../pages/busca/busca';
+import { EditarPostPage } from './../pages/editar-post/editar-post';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Camera } from '@ionic-native/camera';
 import { RefreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { RegistroPage } from './../pages/registro/registro';
@@ -22,6 +26,9 @@ import { apiService } from '../providers/api-service';
 import { RestProvider } from '../providers/rest/rest';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PhotoViewer } from '../../node_modules/@ionic-native/photo-viewer';
+
+import { IonMaskModule } from '@pluritech/ion-mask';
 
 
 
@@ -35,12 +42,15 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
     PostagemDetalhePage,
     PerfilPage,
     LoginPage,
-    RegistroPage
+    RegistroPage,
+    EditarPostPage,
+    BuscaPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {backButtonText: ''}),
     HttpModule,
+    IonMaskModule.forRoot(),
     HttpClientModule
   ],
   bootstrap: [IonicApp],
@@ -53,7 +63,9 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
     PostagemDetalhePage,
     PerfilPage,
     LoginPage,
-    RegistroPage
+    RegistroPage,
+    EditarPostPage,
+    BuscaPage
   ],
   providers: [
     StatusBar,
@@ -62,6 +74,9 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
     apiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
+    Camera,
+    ImagePicker,
+    PhotoViewer,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true }
   ]

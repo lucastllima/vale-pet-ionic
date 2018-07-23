@@ -59,10 +59,12 @@
       .name {
         font-weight: 500;
         margin-bottom: 3px;
+        text-shadow: 1px 1px 0 rgba(1, 1, 1, 0.66);
       }
       .e-mail {
         margin-top: 0;
         margin-bottom: 5px;
+        text-shadow: 1px 1px 0 rgba(1, 1, 1, 0.66);
       }
     }
     .user-avatar {
@@ -72,10 +74,25 @@
     h3,
     .label,
     {
-      color: #999;
-      font-weight: 400;
+      color: #000;
+      font-weight: 500;
     }
     ion-icon {
       color: #777;
     }
+    .item-inner
+    {
+      margin-left: 24px;
+    }
+    #sidemenu-list i
+    {
+      font-size: 2.0rem;
+      width: 20px;
+      color: #999;
+    }
+
+    .mr-5{
+      margin-right: 5px;
+    }
+
   }

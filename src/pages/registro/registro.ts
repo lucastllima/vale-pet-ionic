@@ -1,7 +1,7 @@
 import { HomePage } from './../home/home';
 import { RestProvider } from './../../providers/rest/rest';
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { HttpErrorResponse } from '../../../node_modules/@angular/common/http';
 
@@ -26,6 +26,9 @@ export class RegistroPage {
 
   errorPassword:any;
   messagePassword:any;
+
+  type1:any = 'password';
+  type2:any = 'password';
   
   constructor(
     public navCtrl: NavController,
@@ -33,7 +36,8 @@ export class RegistroPage {
     private rest: RestProvider,
     private formBuilder: FormBuilder,
     public loadingCtrl:LoadingController,
-    public alertCtrl:AlertController
+    public alertCtrl:AlertController,
+    public events: Events
   ) 
   {
    
@@ -58,21 +62,24 @@ export class RegistroPage {
       let loading = this.loadingCtrl.create({
         spinner: 'crescent',
         content: 'Processando...',
-        showBackdrop: false
+        showBackdrop: true
       });
       
 
       loading.present().then(() => {
         this.rest.registro(f).subscribe( (data) => {
           loading.dismiss();
-
+          this.events.publish('user:created', true, Date.now());
           this.navCtrl.setRoot(HomePage);
         }, (errorResponse) => {
           loading.dismiss();
 
+          var erro = 'Erro na conexão com o servidor, tente novamente mais tarde.';
+          if(errorResponse.error['error']) erro = errorResponse.error['error'];
+
           let alert = this.alertCtrl.create({
             title: 'Atenção',
-            subTitle: errorResponse.error['error'],
+            subTitle: erro,
             buttons: ['Ok']
           });
           alert.present();
@@ -80,6 +87,33 @@ export class RegistroPage {
         });
       });
     }
+  }
+
+  showPassword(input)
+  {
+    if(input == 1)
+    {
+      if(this.type1 === 'password')
+        this.type1 = 'text';
+      else
+        this.type1 = 'password';
+    }else{
+      if(this.type2 === 'password')
+        this.type2 = 'text';
+      else
+        this.type2 = 'password';
+    }
+    
+  }
+
+  facebookLogin()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'Atenção',
+      subTitle: 'Login com o facebook ainda não está pronto...',
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
 }

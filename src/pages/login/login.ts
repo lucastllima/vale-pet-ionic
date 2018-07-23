@@ -2,7 +2,7 @@ import { HomePage } from './../home/home';
 import { RegistroPage } from './../registro/registro';
 import { RestProvider } from './../../providers/rest/rest';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
 import { HttpErrorResponse } from '../../../node_modules/@angular/common/http';
 
@@ -25,6 +25,8 @@ export class LoginPage{
   errorPassword:any;
   messagePassword:any;
 
+  type1:any = 'password';
+
   RegistroPage:any = RegistroPage;
 
   constructor(
@@ -33,7 +35,8 @@ export class LoginPage{
     private rest: RestProvider,
     private formBuilder: FormBuilder,
     public loadingCtrl:LoadingController,
-    public alertCtrl:AlertController
+    public alertCtrl:AlertController,
+    public events: Events
   ) {
 
   }
@@ -57,21 +60,24 @@ export class LoginPage{
       let loading = this.loadingCtrl.create({
         spinner: 'crescent',
         content: 'Processando...',
-        showBackdrop: false
+        showBackdrop: true
       });
       
 
       loading.present().then(() => {
         this.rest.login(obj).subscribe( (data) => {
           loading.dismiss();
-
+          this.events.publish('user:created', true, Date.now());
           this.navCtrl.setRoot(HomePage);
         }, (errorResponse: HttpErrorResponse) => {
           loading.dismiss();
 
+          var erro = 'Erro na conexão com o servidor, tente novamente mais tarde.';
+          if(errorResponse.error['error']) erro = errorResponse.error['error'];
+
           let alert = this.alertCtrl.create({
             title: 'Atenção',
-            subTitle: errorResponse.error['error'],
+            subTitle: erro,
             buttons: ['Ok']
           });
           alert.present();
@@ -93,4 +99,11 @@ export class LoginPage{
     alert.present();
   }
 
+  showPassword(input)
+  {
+      if(this.type1 === 'password')
+        this.type1 = 'text';
+      else
+        this.type1 = 'password'; 
+  }
 }

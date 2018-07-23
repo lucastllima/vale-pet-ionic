@@ -4,34 +4,43 @@
     </ion-navbar>
   </ion-header>
   <img class="logo" src="assets/imgs/avatar/dog.png" />
+  <div style="text-align: center;">
+    <h5 class="logo" style="color:#ffffff; width:100%; padding-top:10px;"> Vale Pet </h5>
+  </div>
   <div padding>
     <form #f="ngForm" (ngSubmit)="login(f.value)" novalidate>
-      <ion-item>
-        <ion-input type="text" 
+      <ion-item style="margin-bottom: unset!important">
+        <ion-label floating>E-mail <span class="required-star">*</span></ion-label>
+        <ion-input type="email" 
                   name="email"
                   ngModel
                   required
-                  placeholder="E-mail"></ion-input>
+                  ></ion-input>
       </ion-item>
       
-      <ion-item>
-        <ion-input type="password" 
+      <ion-item style="margin-bottom: unset!important">
+        <ion-label floating>Senha <span class="required-star">*</span></ion-label>
+        <ion-input type="{{ type1 }}" 
                   name="password"
                   ngModel
                   required
-                  placeholder="Senha"></ion-input>
+                  ></ion-input>
+            <button ion-button clear color="dark" style="margin-right: -15px; margin-bottom: -25px;" type="button" item-right (click)="showPassword()">
+              <ion-icon style="font-size: 1.2em;" *ngIf="type1 === 'password'" name="eye-off"></ion-icon>
+              <ion-icon style="font-size: 1.2em;" *ngIf="type1 === 'text'" name="eye"></ion-icon>
+            </button>
       </ion-item>
-      <div>
-          <h6 style="color:#ffffff; float:right; font-size:13px; margin-bottom: 20px; margin-top: 20px;">Esqueceu a senha?</h6>
+      <div style="margin-bottom: 20px; margin-top: 20px;">
+          <!-- <h6 style="color:#ffffff; float:right; font-size:13px; margin-bottom: 20px; margin-top: 20px;">Esqueceu a senha?</h6> -->
       </div>
       
       <button type="submit" [disabled]="!f.form.valid" ion-button block outline color="light" class="login-button">Login</button>
     </form>
   </div>
-  <div class="strike">
+  <!-- <div class="strike">
     <span>Ou</span>
   </div>
-  <button ion-button block clear (click)="facebookLogin()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login com Facebook</button>
+  <button ion-button block clear (click)="facebookLogin()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login com Facebook</button> -->
 </ion-content>
 <ion-footer>
   <ion-toolbar class="footer">

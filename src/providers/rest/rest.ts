@@ -13,7 +13,8 @@ import { RequestOptions } from '../../../node_modules/@angular/http';
 @Injectable()
 export class RestProvider {
 
-  apiUrl = 'http://192.168.100.9:8000/api/';
+  public apiUrl = 'http://192.168.0.104:8000/api/';
+  public filesUrl = 'http://192.168.0.104:8000/uploads/';
 
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
@@ -63,6 +64,136 @@ export class RestProvider {
       localStorage.setItem('user', JSON.stringify(data.user));
     });
   }
-  
 
+  atualizar_perfil(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.post<any>(this.apiUrl+'atualizar-perfil', dados)
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  atualizar_foto_perfil(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.post<any>(this.apiUrl+'atualizar-foto-perfil', dados)
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+  
+  inserir_post(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.post<any>(this.apiUrl+'inserir-post', dados)
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  meus_posts(id): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.get<any>(this.apiUrl+'meus-posts/'+id, {})
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  posts(): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.get<any>(this.apiUrl+'posts', {})
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  alterar_situacao_post(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.post<any>(this.apiUrl+'alterar-situacao-post/'+dados.id, dados)
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  remover_post(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.post<any>(this.apiUrl+'remover-post/'+dados.id, dados)
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+  
+  atualizar_post(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.post<any>(this.apiUrl+'atualizar-post/'+dados.id, dados)
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  obter_racas(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.get<any>(this.apiUrl+'obter-racas/'+dados.tipo, {})
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  obter_cidades(): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.get<any>(this.apiUrl+'obter-cidades', {})
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  buscar_post(dados): Promise<any>
+  {
+    return new Promise( (resolve, reject) => {
+      this.http.post<any>(this.apiUrl+'buscar-post', dados)
+      .subscribe((data) =>{
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
 }

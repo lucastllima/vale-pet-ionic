@@ -9,26 +9,27 @@
   <ion-content>
     <div class="menu-header">
       <!--material-design-background-->
-      <div class="custom-avatar" [style.backgroundImage]="'url(https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg)'"></div>
+      <div *ngIf="rest.userData() && !rest.userData().avatar" class="custom-avatar" [style.backgroundImage]="'url(assets/imgs/avatar/avatar_user.png)'"></div>
+      <div *ngIf="rest.userData() && rest.userData().avatar" class="custom-avatar" [style.backgroundImage]="'url(' + rest.filesUrl +'avatar/'+ rest.userData().avatar + ')'"></div>
       <!-- <img class="user-avatar round" [src]="chosenPicture || placeholder" onerror="this.src='assets/img/avatar/girl-avatar.png'"
       /> -->
-      <p class="name">Lucas Teixeira Lima</p>
-      <p class="e-mail">lucasteixeira-lima@hotmail.com</p>
+      <p *ngIf="rest.userData()" class="name">{{ rest.userData().name }}</p>
+      <p *ngIf="rest.userData()" class="e-mail">{{ rest.userData().email }}</p>
     </div>
  
 
-    <ion-list no-lines>
-      <button menuClose ion-item detail-none (click)="openPage(HomePage)">
+    <ion-list style="margin-top:20px;" id="sidemenu-list" no-lines>
+      <!-- <button menuClose ion-item detail-none (click)="openPage(HomePage)">
           <i item-left class="fas fa-home"></i> Início
-      </button>
+      </button> -->
       <button menuClose ion-item detail-none (click)="pushPage(PerfilPage)">
           <i item-left class="fas fa-user"></i> Meu Perfil
       </button>
       <button menuClose ion-item detail-none (click)="pushPage(PostagensPage)">
-          <i item-left class="fas fa-file-alt"></i> Meus Anúncios
+          <i item-left class="fas fa-file-alt"></i> Meus Animais
       </button>
       <button menuClose ion-item detail-none (click)="pushPage(AdicionarPage)">
-          <i item-left class="fas fa-plus"></i> Novo Anúncio
+          <i item-left class="fas fa-plus"></i> Novo Animal
       </button>
      
       
@@ -42,6 +43,11 @@
       </button>
     </ion-list>
   </ion-content>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-title style="width:100%;">Vale Pet</ion-title>
+    </ion-toolbar>
+  </ion-footer>
 </ion-menu>
 
 

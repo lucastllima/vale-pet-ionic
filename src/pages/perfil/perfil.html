@@ -16,15 +16,24 @@
 <ion-content>
 
     <div id="profile-bg" [ngStyle]="{'background-image': 'url(assets/imgs/background/perfil-background.png)'}"></div>
-    <div id="content">
+      <div id="content" style="padding-top:90px;">
         <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
         <div id="profile-info">
-          <div id="profile-image" [style.backgroundImage]="'url(assets/imgs/avatar/dog.png)'" style="-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;background-position: center;width:128px;height:128px;border-radius: 50%;"></div>
+          <!-- <div id="profile-image" [style.backgroundImage]="'url(assets/imgs/avatar/dog.png)'" style=""></div> -->
+          <div *ngIf="rest.userData() && !rest.userData().avatar" class="avatar-img" [style.backgroundImage]="'url(assets/imgs/avatar/avatar_user.png)'"></div>
+          <div *ngIf="rest.userData() && rest.userData().avatar" class="avatar-img" [style.backgroundImage]="'url(' + rest.filesUrl +'avatar/'+ rest.userData().avatar + ')'"></div>
           <!-- <img id="profile-image" src="assets/imgs/avatar/cat.png"> -->
-          <h3 id="profile-name">John</h3>
-          <span id="profile-description">Traveler, geek and animal lover.</span>
-          <p>Follow my <a href="https://twitter.com/ionicframework">@facebook</a> and
-            <a href="https://twitter.com/driftyco">@twitter</a> accounts.</p>
+          <!-- <h3 id="profile-name">John</h3> -->
+          <!-- <span id="profile-description">Traveler, geek and animal lover.</span> -->
+          <button ion-button="" class="button button-md button-default button-default-md button-md-danger" (click)="alterarFoto()">
+            <span class="button-inner">
+            <i class="fas fa-camera" style="margin-right:5px;"></i>  
+              Alterar Foto
+            </span>
+            <div class="button-effect"></div>
+          </button>
+          <!-- <p>Follow my <a href="https://twitter.com/ionicframework">@facebook</a> and
+            <a href="https://twitter.com/driftyco">@twitter</a> accounts.</p> -->
         </div>
         <!-- <ion-list>
           <ion-item *ngFor="let post of posts">
@@ -35,6 +44,68 @@
             </div>
           </ion-item>
         </ion-list> -->
-    </div>
+        <ion-list padding id="form-full" style="margin-bottom:unset;">
+          <form #f="ngForm" (ngSubmit)="atualizar_perfil(f.value)">
+      
+              <ion-item>
+                  <ion-label color="primary" floating>Nome <span class="required-star">*</span></ion-label>
+                  <ion-input [(ngModel)]="user.name" name="name"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label color="primary" floating>E-mail <span class="required-star">*</span></ion-label>
+                <ion-input type="email" [(ngModel)]="user.email" name="email"></ion-input>
+              </ion-item>
+
+      
+              <ion-input-mask
+              [(ngModel)]="user.telefone"
+              name="telefone"
+              label="Telefone"
+              label-color="primary"
+              typeLabel="floating"
+              [clearIfNotMatch]="true"
+              mask="(00) 00000-0000"
+              type="number">
+              </ion-input-mask>
+
+              <ion-item>
+                <ion-label color="primary" floating> Nova Senha </ion-label>
+                <ion-input ngModel name="senha" type="{{ type1 }}"> </ion-input>
+                <button ion-button clear color="dark" type="button" item-right (click)="showPassword(1)"> 
+                  <ion-icon *ngIf="type1 === 'password'" name="eye-off"></ion-icon>
+                  <ion-icon *ngIf="type1 === 'text'" name="eye"></ion-icon>
+                </button>
+              </ion-item>
+
+              <ion-item>
+                <ion-label color="primary" floating> Confirmar Senha </ion-label>
+                <ion-input ngModel name="senha_confirmation" type="{{ type2 }}"> </ion-input>
+                <button ion-button clear color="dark" type="button" item-right (click)="showPassword(2)">
+                  <ion-icon *ngIf="type2 === 'password'" name="eye-off"></ion-icon>
+                  <ion-icon *ngIf="type2 === 'text'" name="eye"></ion-icon>
+                </button>
+              </ion-item>
+      
+              <!-- <ion-grid>
+                  <ion-row>      
+                      <ion-col text-center col-6>
+                              <button type="button" [disabled]="!rest.userData().telefone" style="white-space: normal; padding: 19px 5px 19px 5px; width:100%"  (click)="preencherTelefone()" ion-button small color="success">Obter do Perfil</button>
+                      </ion-col>  
+                      <ion-col text-center col-6 id="whatsapp">
+                              <ion-item no-lines text-center>
+                                  <ion-label style="margin-top: 14px; font-size:14px;"><ion-icon name="logo-whatsapp" class="mr-5" style="color:#075e54!important;"></ion-icon> É Whatsapp?</ion-label>
+                                  <ion-checkbox item-right [(ngModel)]="post.iswhatsapp" name="iswhatsapp"></ion-checkbox>
+                              </ion-item>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid> -->
+    
+              <div padding>
+                  <button type="submit" style="height:50px" [disabled]="!f.form.valid" ion-button full color="primary"><ion-icon name="save"></ion-icon> Salvar</button>
+              </div>
+            </form>
+          </ion-list>
+      </div>
 
 </ion-content>

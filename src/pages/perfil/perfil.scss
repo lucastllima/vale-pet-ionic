@@ -18,7 +18,7 @@ page-perfil {
         position: relative;
         margin-top: 150px;
         background-color: white;
-        box-shadow: 0px -1px 10px rgba(0,0,0,0.4);
+        // box-shadow: 0px -1px 10px rgba(0,0,0,0.4);
         padding-top: 200px;
       }
 
@@ -42,13 +42,7 @@ page-perfil {
       }
 
       #profile-image {
-        display: block;
-        border-radius: 100px;
-        //border: 1px solid #fff;
-        width: 128px;
-        height: 128px;
-        margin: 30px auto 0;
-        box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+       
       }
 
       .list-item-content {
@@ -86,4 +80,49 @@ page-perfil {
         color: #888;
       }
 
+      .avatar-img
+      {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-position: center;
+        width:128px;
+        height:128px;
+        border-radius: 50%;
+        display: block;
+        border-radius: 100px;
+        //border: 1px solid #fff;
+        width: 128px;
+        height: 128px;
+        margin: 30px auto 0;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+      }
+
+      #form-full ion-item{
+          padding-left: 0px;
+      }
+
+      ion-list-header ion-label{
+          color:black!important;
+      }
+
+      ion-label{
+          color:#488aff!important;
+      }
+
+      ion-content.content-md[padding] .scroll-content {
+          padding-bottom: 16px !important;
+      }
+      
+      ion-content.content-md:not([padding]) .scroll-content {
+          padding-bottom: 0 !important;
+      }
+      ion-label{
+          white-space: normal;
+      }
+      .required-star{
+        color:red!important;
+        margin-left:2px;
+      }
 }

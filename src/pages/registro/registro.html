@@ -9,44 +9,56 @@
     </div>
     <div padding>
       <form #f="ngForm" (ngSubmit)="registro(f.value)" novalidate>
-        <ion-item>
+        <ion-item style="margin-bottom: unset!important">
+          <ion-label floating>Nome Completo <span class="required-star">*</span></ion-label>
           <ion-input type="text" 
                     name="name"
                     ngModel
                     required
-                    placeholder="Nome"></ion-input>
+                    ></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-input type="text" 
+        <ion-item style="margin-bottom: unset!important">
+          <ion-label floating>E-mail <span class="required-star">*</span></ion-label>
+          <ion-input type="email" 
                     name="email"
                     ngModel
                     required
                     [email]="true"
-                    placeholder="E-mail"></ion-input>
+                    ></ion-input>
         </ion-item>
         
-        <ion-item>
-          <ion-input type="password" 
+        <ion-item style="margin-bottom: unset!important">
+          <ion-label floating>Senha <span class="required-star">*</span></ion-label>
+          <ion-input type="{{ type1 }}" 
                     name="password"
                     ngModel
                     required
-                    placeholder="Senha"></ion-input>
+                    ></ion-input>
+            <button ion-button clear color="dark" class="password-class" type="button" item-right (click)="showPassword(1)">
+              <ion-icon *ngIf="type1 === 'password'" style="font-size: 1.2em;" name="eye-off"></ion-icon>
+              <ion-icon *ngIf="type1 === 'text'" style="font-size: 1.2em;" name="eye"></ion-icon>
+            </button>
         </ion-item>
         <ion-item>
-          <ion-input type="password" 
+          <ion-label floating>Repetir Senha <span class="required-star">*</span></ion-label>
+          <ion-input type="{{ type2 }}" 
                     name="password_confirmation"
                     ngModel
                     required
-                    placeholder="Repetir Senha"></ion-input>
+                    ></ion-input>
+            <button ion-button clear color="dark" class="password-class" type="button" item-right (click)="showPassword(2)">
+              <ion-icon *ngIf="type2 === 'password'" style="font-size: 1.2em;" name="eye-off"></ion-icon>
+              <ion-icon *ngIf="type2 === 'text'" style="font-size: 1.2em;" name="eye"></ion-icon>
+            </button>
         </ion-item>
         
         <button type="submit" [disabled]="!f.form.valid" ion-button block outline color="light" class="login-button">Registrar</button>
       </form>
     </div>
-    <div class="strike">
+    <!-- <div class="strike">
       <span>Ou</span>
     </div>
-    <button ion-button block clear (click)="facebookLogin()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login com Facebook</button>
+    <button ion-button block clear (click)="facebookLogin()" color="light" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login com Facebook</button> -->
   </ion-content>
   <ion-footer>
     <ion-toolbar class="footer">

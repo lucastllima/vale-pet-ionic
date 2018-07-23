@@ -1,5 +1,13 @@
 page-registro {
 
+    ion-content.content-md[padding] .scroll-content {
+      padding-bottom: 16px !important;
+    }
+    
+    ion-content.content-md:not([padding]) .scroll-content {
+      padding-bottom: 0 !important;
+    }
+    
     $transparent-white: rgba(255, 255, 255, .6);
     // This is just to make the header transparent and button/icon with white color
     .toolbar-content,
@@ -63,19 +71,33 @@ page-registro {
     // Input items
     ion-item {
       border-radius: 3px !important;
-      padding-left: 10px !important;
+      padding-left: 0px !important;
       margin-bottom: 15px !important;
       margin-bottom: 10px;
       color: #fff !important;
-      background-color: rgba(255, 255, 255, .2) !important;
+      background-color: transparent !important;
       font-size: 0.9em;
     }
      ::-webkit-input-placeholder {
       color: white !important;
     }
+    ::-moz-placeholder {
+      color: white;
+    }
+    :-ms-input-placeholder {
+      color: white;
+    }
+    ion-label{
+      color:white!important;
+    }
     .item-inner {
-      border-bottom: 0 !important;
+      // border-bottom: 0 !important;
+      border-bottom:1px solid white!important;
       box-shadow: none !important;
+    }
+    .required-star{
+        color:red!important;
+        margin-left:2px;
     }
     // --
     .login-button {
@@ -115,5 +137,10 @@ page-registro {
     .strike>span:after {
       left: 100%;
       margin-left: 15px;
+    }
+
+    .password-class{
+      margin-right: -15px!important;
+      margin-bottom: -25px!important;
     }
 }

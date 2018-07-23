@@ -21,6 +21,7 @@ export class MyApp {
   AdicionarPage:any = AdicionarPage;
   PerfilPage:any = PerfilPage;
   PostagensPage:any = PostagensPage;
+  dadosUser:any;
 
   pages: Array<{title: string, component: any, icon: any}>;
 
@@ -31,6 +32,10 @@ export class MyApp {
     public rest: RestProvider,
     public loadingCtrl: LoadingController    
   ) {
+      if(localStorage.getItem('user'))     
+        this.rootPage = HomePage;
+      else
+        this.rootPage = LoginPage;
     this.initializeApp();
     
     // used for an example of ngFor and navigation
@@ -42,18 +47,19 @@ export class MyApp {
       //{ title: 'Meu Perfil', component: PerfilPage, icon: 'fas fa-user' }
     ];
 
+
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      // if(localStorage.getItem('user')) 
+      // this.dadosUser = this.rest.userData();
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      if(localStorage.getItem('user'))
-        this.rootPage = HomePage;
-      else
-        this.rootPage = LoginPage;
+      
     });
   }
 
@@ -73,7 +79,7 @@ export class MyApp {
     let loading = this.loadingCtrl.create({
       spinner: 'crescent',
       content: 'Processando...',
-      showBackdrop: false
+      showBackdrop: true
     });
     
 
@@ -88,4 +94,6 @@ export class MyApp {
       }).catch((error) => { loading.dismiss(); console.log(error); });
     });
   }
+  
+  
 }

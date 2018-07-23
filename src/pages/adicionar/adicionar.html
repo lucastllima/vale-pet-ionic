@@ -6,13 +6,164 @@
 -->
 <ion-header>
 
-  <ion-navbar navPop>
-    <ion-title>Novo anúncio</ion-title>
+  <ion-navbar hideBackButton="true">
+      <ion-buttons left="" class="bar-buttons bar-buttons-md">
+          <button type="button" ion-button class="custom-back-button" (click)="alertarSaida()">
+              <ion-icon name="arrow-back"></ion-icon>
+            </button>
+      </ion-buttons>
+    <ion-title>Novo Animal</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+    
+    <ion-list padding id="form-full">
+    <ion-list-header no-lines style="padding-left: unset;">
+        Informações do animal
+    </ion-list-header>
+    <form #f="ngForm">
 
+        <ion-item>
+            <ion-label color="primary" floating>Nome</ion-label>
+            <ion-input [(ngModel)]="post.nome_animal" name="nome_animal"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="primary" floating>Tipo <span class="required-star">*</span></ion-label>
+            <ion-select cancelText="Cancelar" [(ngModel)]="post.tipo_animal" required name="tipo_animal" #C (ionChange)="obterRacas(C.value)">
+                <ion-option selected value="1">Cachorro</ion-option>
+                <ion-option value="2">Gato</ion-option>
+                <ion-option value="0">Outro</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="primary" floating>Raça <span class="required-star">*</span></ion-label>
+            <ion-select cancelText="Cancelar" [(ngModel)]="post.raca_id" required name="raca_id">
+                <ion-option *ngFor="let raca of racas" [value]="raca.id">{{ raca.nome }}</ion-option>
+                <ion-option *ngIf="!raca && racas.length == 0" disabled>Selecione um tipo de animal</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="primary" floating>Sexo <span class="required-star">*</span></ion-label>
+            <ion-select cancelText="Cancelar" [(ngModel)]="post.sexo_animal" required name="sexo_animal">
+                <ion-option selected value="1">Fêmea</ion-option>
+                <ion-option value="2">Macho</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="primary" floating>Idade <span class="required-star">*</span></ion-label>
+            <ion-select cancelText="Cancelar" [(ngModel)]="post.idade_animal" required name="idade_animal">
+                <ion-option selected value="1">1 a 6 meses</ion-option>
+                <ion-option value="2">7 a 12 meses</ion-option>
+                <ion-option value="3">1 a 3 anos</ion-option>
+                <ion-option value="4">Acima de 3 anos</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-grid>
+            <ion-row>      
+                <ion-col text-center col-6>
+                    <ion-item no-lines text-center>
+                        <ion-label style="margin-top: 14px; font-size:14px;">É Vacinado(a)?</ion-label>
+                        <ion-checkbox item-right [(ngModel)]="post.isvacinado" name="isvacinado"></ion-checkbox>
+                    </ion-item>
+                </ion-col>  
+                <ion-col text-center col-6>
+                        <ion-item no-lines text-center>
+                            <ion-label style="margin-top: 14px; font-size:14px;">É Castrado(a)?</ion-label>
+                            <ion-checkbox item-right [(ngModel)]="post.iscastrado" name="iscastrado"></ion-checkbox>
+                        </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-list-header no-lines style="margin-top:40px; padding-left:unset;">
+            Informações Adicionais
+        </ion-list-header>
+
+        <ion-item>
+            <ion-label color="primary" floating>Sobre</ion-label>
+            <ion-textarea [(ngModel)]="post.descricao" name="descricao" autosize></ion-textarea>
+        </ion-item>
+
+        <!-- <ion-item>
+            <ion-label color="primary" floating>Telefone</ion-label>
+            <ion-input [(ngModel)]="post.telefone" required name="telefone"></ion-input>
+        </ion-item> -->
+
+        <ion-item>
+            <ion-label color="primary" floating>Cidade <span class="required-star">*</span></ion-label>
+            <ion-select cancelText="Cancelar" [(ngModel)]="post.cidade_id" required name="cidade_id">
+                <ion-option *ngFor="let cidade of cidades" [value]="cidade.id">{{ cidade.nome }}</ion-option>
+                <!-- <ion-option selected value="1">Petrolina</ion-option>
+                <ion-option value="2">Juazeiro</ion-option> -->
+            </ion-select>
+        </ion-item>
+        <ion-input-mask
+        [(ngModel)]="post.telefone"
+        required
+        name="telefone"
+        label="Telefone"
+        label-color="primary"
+        typeLabel="floating"
+        [clearIfNotMatch]="true"
+        mask="(00) 00000-0000"
+        type="number">
+        </ion-input-mask>
+        
+
+        <ion-grid>
+            <ion-row>      
+                <ion-col text-center col-6>
+                        <!-- <button type="button" [disabled]="!rest.userData().telefone" style="white-space: normal; padding: 19px 5px 19px 5px; width:100%"  (click)="preencherTelefone()" ion-button small color="success">Obter do Perfil</button> -->
+                </ion-col>  
+                <ion-col text-center col-6 id="whatsapp">
+                        <ion-item no-lines text-center>
+                            <ion-label style="margin-top: 14px; font-size:14px;"><ion-icon name="logo-whatsapp" class="mr-5" style="color:#075e54!important;"></ion-icon> É Whatsapp?</ion-label>
+                            <ion-checkbox item-right [(ngModel)]="post.iswhatsapp" name="iswhatsapp"></ion-checkbox>
+                        </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        
+        
+    </form>
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+          Selecione pelo menos uma imagem para esse animal. <span class="required-star">*</span>
+        </ion-list-header>
+        <ion-item>
+            <ion-grid>
+              <ion-row>        
+                <ion-col text-center col-6 *ngFor="let img of imagens; let i=index">
+                  <div style="height:200px;" class="bk-img" (click)="visualisarImagem('data:image/png;base64,' + img)" [style.backgroundImage]="'url(data:image/png;base64,' + img + ')'">
+                  </div>
+                    <ion-fab right top>
+                      <button class="fab-delete" color="danger" (click)="removerImagem(i)" ion-fab>
+                        <ion-icon name="trash"></ion-icon>
+                      </button>
+                    </ion-fab>
+                </ion-col>
+                
+              </ion-row>
+            </ion-grid>
+            <ion-avatar text-center>
+              <button (click)="inserirImagens()" ion-button="" class="button button-md button-default button-default-md button-md-danger"><span class="button-inner"><i class="fas fa-images" style="margin-right:5px;"></i>  Selecionar Imagens</span><div class="button-effect"></div></button>
+            </ion-avatar>
+        </ion-item>
+        <div padding>
+            <button type="submit" style="height:50px" (click)="inserir_post(f.value)" [disabled]="!f.form.valid && imagens.length == 0" ion-button full color="primary"><ion-icon name="save"></ion-icon> Salvar</button>
+        </div>
+    </ion-list>
+   
+     
+  
 </ion-content>

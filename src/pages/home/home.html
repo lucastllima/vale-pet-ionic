@@ -1,30 +1,151 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+      <ion-buttons left="" class="bar-buttons bar-buttons-md">
+          <button ion-button menuToggle>
+              <ion-icon name="menu"></ion-icon>
+            </button>
+      </ion-buttons>
+      <ion-buttons right="" class="bar-buttons bar-buttons-md">
+          <button (click)="buscar()" style="margin-right: 7px; font-size: 2.0rem;" ion-button>
+              <ion-icon name="search"></ion-icon>
+            </button>
+      </ion-buttons>
     <ion-title>Início</ion-title>
+    
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <!-- <h3>Ionic Menu Starter</h3>
 
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
   <br> -->
-  <ion-card>
-    <img src="https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg"/>
-    <ion-card-content>
-      <ion-card-title>
+  <ion-card  class="card" *ngFor="let item of postagens" style="margin-bottom:35px; margin-top:20px">
+      <ion-item style="border-top: 1px solid #0000001c;">
+        <ion-row>
+            <ion-avatar item-start>
+                <!-- <img *ngIf="!item.user.avatar" src="assets/imgs/avatar/avatar_user.png">
+                <img *ngIf="item.user.avatar" src="{{ rest.filesUrl }}/avatar/{{ item.user.avatar }}"> -->
+               
+
+              <div *ngIf="!item.user.avatar" class="bk-avatar-img" [style.backgroundImage]="'url(assets/imgs/avatar/avatar_user.png)'"></div>
+              <div *ngIf="item.user.avatar" class="bk-avatar-img" [style.backgroundImage]="'url(' + rest.filesUrl +'avatar/'+ item.user.avatar + ')'"></div>
+            </ion-avatar>
+          <ion-col style="white-space:normal;">
+              
+              <h3 style="font-weight: bold;">{{ item.user.name }}</h3>
+              <p>{{ item.created_at | date:'dd/MM/yyyy'}}</p>
+          </ion-col>
+          <ion-col>
+              <ion-badge style="float: right;" *ngIf="item.situacao == 0" color="danger"> Não Adotado</ion-badge>
+              <ion-badge style="float: right;" *ngIf="item.situacao == 1" color="secondary"> Adotado</ion-badge>
+          </ion-col>
+        </ion-row>
+       
+        
+      </ion-item>
+    <ion-slides zoom style="height:300px;" #slider pager dir="">
+      <ion-slide class="slide-img" *ngFor="let img of item.imagens"
+        [style.backgroundImage]="'url(' + rest.filesUrl +'post_imagens/'+img.foto+ ')'">
+      </ion-slide>
+      <!-- [style.backgroundImage]="'url(' + slide.imageUrl + ')'" -->
+    </ion-slides>
+    <ion-card-content id="body-card" style="padding-top: unset; padding-right: unset; padding-left: unset; padding-bottom: unset;">
+      <!-- <ion-card-title>
         Nine Inch Nails Live
-        </ion-card-title>
-      <p>
-        The most popular industrial group ever, and largely
-        responsible for bringing the music to a mass audience.
-      </p>
+        </ion-card-title>-->
+
+          <!-- <ion-item >
+            
+          </ion-item> -->
+
+        <!-- <ion-item *ngIf="item.descricao">
+          <h2 style="font-weight: 600; float:left; margin-right:5px; ">Sobre: </h2>
+          <p style="white-space: normal; margin-top: 5px;">{{ item.descricao }}</p>
+        </ion-item> -->
+        <ion-item>
+            <p *ngIf="item.descricao" style="white-space: normal;"><b style="color: black; font-size: 1.6rem;">Sobre:</b> {{ item.descricao }}</p>
+
+            <p style="white-space: normal; margin-top: 7px;" *ngIf="item.nome_animal"><b style="color: black; font-size: 1.6rem;">Nome:</b> {{ item.nome_animal }}</p>
+            <p style="white-space: normal; margin-top: 7px;" *ngIf="!item.nome_animal"><b style="color: black; font-size: 1.6rem;">Nome:</b> Não possui</p>
+
+            <p style="white-space: normal; margin-top: 7px;">
+                <b style="color: black; font-size: 1.6rem;"> Raça:</b>
+              {{ item.raca.nome }}
+            </p>
+
+            
+
+            <p style="white-space: normal; margin-top: 7px;">
+              <b *ngIf="item.iswhatsapp" style="color: black; font-size: 1.6rem;"><ion-icon name="logo-whatsapp" class="mr-5" style="color:#075e54!important; font-size: 1.0em;"></ion-icon> Telefone:</b>
+              <b *ngIf="!item.iswhatsapp" style="color: black; font-size: 1.6rem;"><ion-icon name="call" class="mr-5" style="color:#6d9df6!important; font-size: 1.0em;"></ion-icon> Telefone:</b>
+              {{ mtel(item.telefone) }}
+            </p>
+
+            <p style="white-space: normal; margin-top: 7px;">
+                <b style="color: black; font-size: 1.6rem;"><ion-icon name="pin" class="mr-5" style="color:#fe7569!important; font-size: 1.0em;"></ion-icon> Cidade:</b>
+              {{ item.cidade.nome }}
+            </p>
+
+            
+        </ion-item>
+        <!-- <ion-item >
+            
+            <p style="white-space: normal;">
+              <b *ngIf="item.iswhatsapp" style="color: black; font-size: 1.6rem;"><ion-icon name="logo-whatsapp" class="mr-5" style="color:#075e54!important; font-size: 1.0em;"></ion-icon> Telefone:</b>
+              <b *ngIf="!item.iswhatsapp" style="color: black; font-size: 1.6rem;"><ion-icon name="call" class="mr-5" style="color:#6d9df6!important; font-size: 1.0em;"></ion-icon> Telefone:</b>
+              {{ mtel(item.telefone) }}
+            </p>
+        </ion-item> -->
+        <!-- <ion-item>
+            <p style="white-space: normal;">
+                <b style="color: black; font-size: 1.6rem;"><ion-icon name="pin" class="mr-5" style="color:#fe7569!important; font-size: 1.0em;"></ion-icon> Cidade:</b>
+              {{ item.cidade.nome }}</p>
+        </ion-item> -->
+        
+        
     </ion-card-content>
+    <ion-grid padding>
+        <ion-row>      
+            <ion-col col-4>
+                <ion-icon name="paw" style="color:#8f5b5b;"></ion-icon>
+                {{ definirTipo(item.tipo_animal) }}
+            </ion-col>
+            <ion-col col-4>
+                <ion-icon style="color:pink;" *ngIf="item.sexo_animal == 1" name="female"></ion-icon>
+                <ion-icon style="color:#6d9df6"  *ngIf="item.sexo_animal == 2" name="male"></ion-icon>
+                {{ definirSexo(item.sexo_animal) }}
+            </ion-col>
+            <ion-col col-4>
+                <ion-icon style="color:#6d9df6" name="information-circle"></ion-icon>
+                {{ definirIdade(item.idade_animal) }}
+            </ion-col>
+            <ion-col col-4 *ngIf="item.isvacinado == 1">
+                <!-- <ion-icon style="color:#6d9df6" name="information-circle"></ion-icon> -->
+                <i class="fas fa-syringe" style="color: #1a9f3a"></i>
+                Vacinado
+            </ion-col>
+            <ion-col col-4 *ngIf="item.iscastrado == 1">
+                <!-- <ion-icon style="color:#6d9df6" name="information-circle"></ion-icon> -->
+                <i class="fas fa-syringe" style="color: #1a9f3a"></i>
+                Castrado
+            </ion-col>
+            
+        </ion-row>
+    </ion-grid>
   </ion-card>
+  <ion-grid *ngIf="postagens && postagens.length == 0" style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+    <ion-row>
+      <ion-col text-center col-12><h4>Nenhum animal foi encontrado.</h4></ion-col>
+      <ion-col text-center col-12><button ion-button [navPush]="AdicionarPage"><i class="fas fa-plus" style="margin-right:5px;"></i> Novo Animal</button></ion-col>
+      <ion-col text-center *ngIf="isbusca" col-12><button ion-button color="secondary" (click)="obterPosts()"><i class="fas fa-filter" style="margin-right:5px;"></i> Resetar Busca</button></ion-col>
+    </ion-row>
+  </ion-grid>
+ 
   <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
 </ion-content>

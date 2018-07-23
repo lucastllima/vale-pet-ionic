@@ -7,12 +7,60 @@
 <ion-header>
 
   <ion-navbar navPop>
-    <ion-title>Postagens</ion-title>
+    <ion-title>Meus Animais</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <div class="pins">
+    <ion-row>
+      <ion-col *ngFor="let item of postagens">
+          <ion-card class="pin">
+              <!-- <img src='{{rest.filesUrl}}/post_imagens/{{item.imagem.foto}}' /> -->
+              
+                  <ion-fab style="right: 18px; margin-top: 3px;">
+                    <button class="fab-custom fab-delete" color="primary" (click)="abrirOpcoes(item)" ion-fab>
+                      <ion-icon class="edit-icon" name="more"></ion-icon>
+                    </button>
+                  </ion-fab>
+             
+              <div class="div-img" style="height:150px;" [style.backgroundImage]="'url(' + rest.filesUrl +'post_imagens/'+item.imagem.foto+ ')'"></div>
+        
+              <div *ngIf="item.nome_animal" class="post-description">
+                <small style="white-space: normal;"><b>Nome:</b>{{ item.nome_animal }}</small>
+                <br>
+                <small style="white-space: normal;"><b>Data:</b>{{ item.created_at | date:'dd/MM/yyyy'}}</small>
+              </div>
+              
+                <!-- <ion-avatar item-start>
+                  <img src="assets/img/avatar/marty-avatar.png">
+                </ion-avatar>
+                <small>McFly</small>
+                <p><small>Category</small></p> -->
+                <ion-grid text-center>
+                  <ion-row>
+                    <ion-col col-12>
+                        <ion-badge *ngIf="item.situacao == 0" color="danger"> Não Adotado</ion-badge>
+                        <ion-badge *ngIf="item.situacao == 1" color="secondary"> Adotado</ion-badge>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+               
+              
+            </ion-card>
+           
+            
+      </ion-col>
+    </ion-row>
+    
+  </div>
 
+  <ion-grid *ngIf="postagens && postagens.length == 0" style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+    <ion-row>
+      <ion-col text-center col-12><h4>Você não possui animais cadastrados.</h4></ion-col>
+      <ion-col text-center col-12><button ion-button [navPush]="AdicionarPage"><i class="fas fa-plus" style="margin-right:5px;"></i> Novo Animal</button></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

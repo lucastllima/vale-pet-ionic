@@ -1,0 +1,28 @@
+page-editar-post {
+    #form-full ion-item{
+        padding-left: 0px;
+    }
+
+    ion-list-header ion-label{
+        color:black!important;
+    }
+
+    ion-label{
+        color:#488aff!important;
+    }
+
+    ion-content.content-md[padding] .scroll-content {
+        padding-bottom: 16px !important;
+    }
+    
+    ion-content.content-md:not([padding]) .scroll-content {
+        padding-bottom: 0 !important;
+    }
+    ion-label{
+        white-space: normal;
+    }
+    .required-star{
+        color:red!important;
+        margin-left:2px;
+    }
+}

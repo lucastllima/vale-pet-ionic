@@ -1,3 +1,69 @@
 page-adicionar {
 
+    ion-content.content-md[padding] .scroll-content {
+        padding-bottom: 16px !important;
+    }
+    
+    ion-content.content-md:not([padding]) .scroll-content {
+        padding-bottom: 0 !important;
+    }
+    ion-label{
+        white-space: normal;
+    }
+
+    textarea{
+        height: 100%;
+    }
+    ion-list-header {margin-bottom: unset!important; color:#000!important; font-weight: 500!important}
+
+    .bk-img{
+        background-repeat: no-repeat;
+        background: no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .fab-delete{
+        width: 40px;
+        height: 40px;
+        margin-top: -10px;
+    }
+
+    .custom-back-button{
+        margin: 0 0.2rem;
+        padding: 0 5px;
+        border-radius: 2px;
+        height: 32px;
+        border: 0;
+        font-size: 2.0rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0 6px;
+        min-width: 44px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        margin-left: 4px!important;
+    }
+
+    #whatsapp .item.item-md .checkbox-md{
+        margin: 9px 0px 9px 4px!important;
+    }
+
+    #form-full ion-item{
+        padding-left: 0px;
+    }
+    ion-list-header ion-label{
+        color:black!important;
+    }
+
+    ion-label{
+        color:#488aff!important;
+    }
+
+    .required-star{
+        color:red!important;
+        margin-left:2px;
+    }
 }
