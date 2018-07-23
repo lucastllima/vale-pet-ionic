@@ -13,8 +13,8 @@ import { RequestOptions } from '../../../node_modules/@angular/http';
 @Injectable()
 export class RestProvider {
 
-  public apiUrl = 'http://192.168.0.104:8000/api/';
-  public filesUrl = 'http://192.168.0.104:8000/uploads/';
+  public apiUrl = 'http://192.168.0.109:8000/api/';
+  public filesUrl = 'http://192.168.0.109:8000/uploads/';
 
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
