@@ -160,7 +160,7 @@
             </ion-avatar>
         </ion-item>
         <div padding>
-            <button type="submit" style="height:50px" (click)="inserir_post(f.value)" [disabled]="!f.form.valid && imagens.length == 0" ion-button full color="primary"><ion-icon name="save"></ion-icon> Salvar</button>
+            <button type="submit" style="height:50px" (click)="inserir_post(f.value)" [disabled]="!f.form.valid || imagens.length == 0" ion-button full color="primary"><ion-icon name="save"></ion-icon> Salvar</button>
         </div>
     </ion-list>
    
